@@ -1,10 +1,9 @@
 #!/bin/bash -e
 
 # install system deps
-if [ $(which apt-get) ]; then
+if [ $(which apt) ]; then
   echo "installing deps for ubuntu"
-  sudo apt-get -y install git curl python python-dev python3-pip build-essential pkg-config zlib1g-dev libglib2.0-dev libpixman-1-dev
-  sudo pip3 install virtualenv 
+  sudo apt -y install build-essential gcc-multilib g++-multilib lib32z1 git curl python3 python3-venv python3-dev python3-pip pkg-config zlib1g-dev libglib2.0-dev libpixman-1-dev libjpeg-dev
  
 else
   echo "*** You'll need to install Ubuntu or get a working build env for qemu and python yourself ***"
@@ -28,9 +27,9 @@ else
 fi
 
 echo "building python venv"
-virtualenv venv
+python3 -m venv venv
 source venv/bin/activate
-pip install --upgrade pip
+pip3 install --upgrade pip
 pip install --upgrade -r requirements.txt
 
 echo "running tests"
@@ -45,4 +44,3 @@ echo "  Check out README for more info"
 echo "  Or just dive in with 'qira /bin/ls'"
 echo "  And point Chrome to localhost:3002"
 echo "    ~geohot"
-
